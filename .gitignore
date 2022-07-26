@@ -37,3 +37,12 @@ __pycache__
 
 # Ignore personal notes file
 notes.txt
+
+# Ignore python-related files and directories
+.env
+.idea
+venv
+__pycache__
+
+# Ignore Mac OS .DS_Store file
+.DS_Store
