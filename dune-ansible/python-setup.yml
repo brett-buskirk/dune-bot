@@ -1,0 +1,25 @@
+---
+  - name: PyConfig - Install and configure Python dependencies
+    hosts: prod
+    become: yes
+    tasks:
+      - name: Install pip
+        apt:
+          name: python3-pip
+          state: present
+          update_cache: yes
+      - name: Install discord.py
+        pip:
+          name: discord.py
+      - name: Install python-dotenv
+        pip:
+          name: python-dotenv
+      - name: Install pymongo
+        pip:
+          name: pymongo
+      - name: Install dnspython
+        pip:
+          name: dnspython
+      - name: Install pandas
+        pip:
+          name: pandas
