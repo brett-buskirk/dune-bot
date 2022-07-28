@@ -1,0 +1,26 @@
+---
+  - name: Kill Bot Process
+    hosts: prod
+    become: yes
+    tasks:
+      - name: Get running processes from remote host
+        ignore_errors: yes
+        shell: "ps -few | grep 'python3 main.py' | awk '{print $2}'"
+        register: running_processes
+      
+      - name: Kill running processes
+        ignore_errors: yes
+        shell: "kill {{ item }}"
+        with_items: "{{ running_processes.stdout_lines }}"
+
+      - wait_for:
+          path: "/proc/{{ item }}/status"
+          state: absent
+        with_items: "{{ running_processes.stdout_lines }}"
+        ignore_errors: yes
+        register: dune_processes
+
+      - name: Force kill stuck processes
+        ignore_errors: yes
+        shell: "kill -9 {{ item }}"
+        with_items: "{{ dune_processes.results | select('failed') | map(attribute='item') | list }}"

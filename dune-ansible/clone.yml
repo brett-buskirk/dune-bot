@@ -1,0 +1,11 @@
+---
+  - name: Clone Dune Bot
+    hosts: prod
+    tasks:
+      - name: Clone the Dune Bot repository
+        git:
+          repo: git@github.com:brett-buskirk/dune-bot.git
+          dest: /home/brett/dune/
+          clone: yes
+          update: yes
+          accept_hostkey: yes

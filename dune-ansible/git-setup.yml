@@ -1,0 +1,28 @@
+---
+  - name: GitConfig - Install and configure git in remote
+    hosts: prod
+    become: yes
+    tasks:
+      - name: Install git
+        apt:
+          name: git
+          state: present
+          update_cache: yes
+      - name: Configure git user name
+        git_config:
+          name: user.name
+          scope: local
+          repo: /home/brett/dune
+          value: "Brett Buskirk"
+      - name: Configure git user email
+        git_config:
+          name: user.email
+          scope: local
+          repo: /home/brett/dune
+          value: "buskirkbrett8@gmail.com"
+      - name: Set default pull strategy
+        git_config:
+          name: pull.rebase
+          scope: local
+          repo: /home/brett/dune
+          value: false
