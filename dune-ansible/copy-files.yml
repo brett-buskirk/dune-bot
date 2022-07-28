@@ -1,0 +1,11 @@
+---
+  - name: Copy Files
+    hosts: prod
+    tasks:
+      - name: Copy .env file to remote server
+        become: true
+        copy:
+          src: /home/brett/git-projects/dune-bot/dune-python/.env
+          dest: /home/brett/dune
+          owner: brett
+          mode: 0644
